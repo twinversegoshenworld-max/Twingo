@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#11152f">
+<title>Twinverse Goshen World | Explore, Create, Connect</title>
+<style>
+  :root{
+    --night:#83d62f; --night2:#a5e94a; --ink:#182b12; --muted:#36552a;
+    --cyan:#2fffe0; --pink:#ff42c8; --gold:#fff329; --green:#64ff31;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:
+      radial-gradient(ellipse at 8% 6%,rgba(230,255,70,.72),transparent 30%),
+      radial-gradient(ellipse at 92% 24%,rgba(70,255,164,.58),transparent 28%),
+      radial-gradient(ellipse at 58% 82%,rgba(255,113,55,.22),transparent 32%),
+      linear-gradient(145deg,#a9ed48 0%,#83d62f 46%,#c2f45d 100%);
+    min-height:100vh;overflow-x:hidden
+  }
+  body:before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;z-index:-1;
+    background-image:radial-gradient(rgba(39,87,23,.45) 1px,transparent 1.5px);
+    background-size:43px 43px;
+    mask-image:linear-gradient(to bottom,black,transparent 85%)
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1120px,92%);margin:auto}
+  header{padding:22px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.04em}
+  .brand-mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(135deg,#54eaff,#a78bfa 50%,#ff70cf);color:#11152f;
+    box-shadow:0 7px 24px #4d8c1f66;transform:rotate(-5deg);font-size:22px}
+  .brand small{display:block;color:#294c1c;font-weight:700;font-size:10px;letter-spacing:.16em;margin-top:2px}
+  .nav-pill{border:1px solid #ffffff30;background:#ffffff7a;padding:10px 15px;border-radius:99px;font-size:13px;color:#23451a}
+  .hero{text-align:center;padding:54px 0 28px}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid #ffffff25;background:#ffffff0b;
+    padding:8px 14px;border-radius:99px;color:#24591e;font-size:12px;letter-spacing:.13em;text-transform:uppercase}
+  .dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green)}
+  h1{font-size:clamp(36px,7vw,76px);line-height:1.02;letter-spacing:-.055em;margin:22px 0 16px;font-weight:950}
+  .gradient-text{background:linear-gradient(90deg,#54eaff,#c1a5ff 45%,#ff85d9 78%,#ffd66b);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .tagline{font-size:clamp(16px,2.4vw,21px);color:#29471e;margin:0 0 17px;font-weight:650}
+  .objective{max-width:720px;margin:0 auto;color:#2e5123;font-size:15px;line-height:1.8}
+  .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 19px;border-radius:14px;
+    font-weight:800;font-size:14px;border:1px solid #ffffff26;transition:.2s}
+  .btn-primary{color:#11152f;background:linear-gradient(110deg,var(--cyan),#b4a0ff,var(--pink));box-shadow:0 10px 26px #4e9d2c55}
+  .btn-secondary{background:#ffffffa8;color:#23451a}
+  .btn:hover{transform:translateY(-3px)}
+  .section{padding:35px 0}
+  .section-heading{text-align:center;margin-bottom:23px}
+  .section-heading h2{font-size:clamp(24px,4vw,36px);margin:0 0 8px;letter-spacing:-.03em}
+  .section-heading p{margin:0;color:#2e5123;font-size:14px;line-height:1.6}
+  .explorer-card{
+    position:relative;isolation:isolate;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center;
+    padding:clamp(22px,4vw,38px);border-radius:28px;overflow:hidden;
+    border:2px solid #ffffffc9;
+    background:linear-gradient(118deg,#49ff8c 0%,#eaff28 24%,#ffad35 48%,#ff54b9 72%,#9b63ff 100%);
+    color:#20290e;
+    box-shadow:0 18px 0 #448d1d,0 28px 48px #345d1c55,inset 0 2px 0 #ffffffd9;
+    transform:perspective(1000px) rotateX(1deg)
+  }
+  .explorer-card:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+    background:radial-gradient(circle at 80% 10%,#ffffff8c,transparent 32%),linear-gradient(45deg,transparent 48%,#ffffff30 49%,#ffffff30 50%,transparent 51%);
+    background-size:auto,26px 26px}
+  .explorer-card:after{content:"";position:absolute;bottom:0;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),var(--pink),transparent);filter:blur(1px)}
+  .label{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#274315;font-weight:950}
+  .explorer-card h3{font-size:clamp(26px,4vw,42px);margin:9px 0 9px;line-height:1.05}
+  .explorer-card p{color:#263c17;line-height:1.65;margin:0 0 18px;max-width:530px;font-size:14px}
+  .explorer-art{min-height:170px;display:grid;place-items:center;position:relative}
+  .cube-scene{width:150px;height:140px;position:relative;filter:drop-shadow(0 18px 16px #07091c99);animation:float 4s ease-in-out infinite}
+  .cube{position:absolute;width:84px;height:84px;left:33px;top:25px;transform-style:preserve-3d;transform:rotateX(-27deg) rotateY(35deg)}
+  .face{position:absolute;width:84px;height:84px;border:2px solid #ffffffa8;display:grid;place-items:center;font-size:27px;font-weight:900}
+  .front{transform:translateZ(42px);background:linear-gradient(135deg,#57edffdd,#786bffdd)}
+  .right{transform:rotateY(90deg) translateZ(42px);background:linear-gradient(135deg,#ff70cfdd,#7d60ffdd)}
+  .top{transform:rotateX(90deg) translateZ(42px);background:linear-gradient(135deg,#c6ffff,#7b8cff);color:#28254c}
+  .ring{position:absolute;width:145px;height:48px;border:2px solid #72f5ff99;border-radius:50%;top:71px;left:2px;transform:rotate(-22deg)}
+  .ring.two{transform:rotate(35deg);border-color:#ff90e2aa}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-9px) rotate(2deg)}}
+  .simulation-note{font-size:11px!important;color:#2d4b20!important;margin-top:10px!important}
+  .sim-panel{margin-top:18px;border:1px solid #ffffff25;background:#233c148c;border-radius:20px;padding:18px}
+  .sim-panel h4{margin:0 0 10px;font-size:13px;color:#f5ffb5;letter-spacing:.08em;text-transform:uppercase}
+  .search-row{display:flex;gap:8px}
+  .search-row input{min-width:0;flex:1;background:#ffffffed;border:1px solid #ffffff;color:#243b18;padding:12px;font:inherit;font-size:13px;outline:none}
+  .search-row button{border:0;border-radius:11px;padding:0 14px;font-weight:850;color:#14152f;background:linear-gradient(110deg,var(--cyan),#bca6ff);cursor:pointer}
+  .sim-result{display:none;margin-top:12px;padding:13px;border-radius:12px;background:#ffffff0b;color:#f6ffe9;font-size:12px;line-height:1.7}
+  .sim-result strong{color:var(--green)}
+  .sim-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}
+  .stat{background:#ffffff2b;border:1px solid #ffffff55;padding:11px 8px;border-radius:12px;text-align:center}
+  .stat b{display:block;color:#ffffff;font-size:16px}.stat span{font-size:10px;color:#e4f5ce}
+  .community-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px;padding-bottom:10px}
+  .community-card{--c1:#54eaff;--c2:#7665ff;position:relative;min-height:174px;padding:21px 19px 18px;
+    display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border-radius:21px;
+    border:2px solid #ffffffd9;
+    background:linear-gradient(135deg,var(--c1) 0%,color-mix(in srgb,var(--c1) 45%,var(--c2)) 42%,var(--c2) 100%);
+    color:#1b2511;
+    box-shadow:0 9px 0 color-mix(in srgb,var(--c2) 72%,#30531a),0 15px 25px #345d1c42,inset 0 2px 0 #ffffffc9;
+    transform:perspective(800px) rotateX(2deg);transition:transform .22s,box-shadow .22s,border-color .22s}
+  .community-card:before{content:"";position:absolute;right:-26px;top:-33px;width:112px;height:112px;border-radius:28px;
+    transform:rotate(27deg);background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 68%,transparent),color-mix(in srgb,var(--c2) 60%,transparent));
+    box-shadow:inset 0 1px 0 #ffffff8a,0 12px 24px #0002;opacity:.65}
+  .community-card:after{content:"";position:absolute;left:12%;right:12%;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--c1),transparent)}
+  .community-card:hover,.community-card:focus-visible{transform:perspective(800px) translateY(-7px) rotateX(0);box-shadow:0 15px 0 color-mix(in srgb,var(--c2) 72%,#30531a),0 23px 32px #345d1c55,inset 0 2px 0 #ffffffdd;outline:none}
+  .community-top{display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1}
+  .icon-tile{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:25px;
+    background:linear-gradient(145deg,#ffffff2a,#ffffff08);border:1px solid #ffffff45;box-shadow:inset 0 1px 0 #ffffff50}
+  .arrow{font-size:22px;color:var(--c1);font-weight:900}
+  .community-card h3{font-size:17px;line-height:1.25;margin:16px 0 6px;position:relative;z-index:1}
+  .community-card p{font-size:12px;color:#263a1b;line-height:1.5;margin:0;position:relative;z-index:1}
+  .soon{display:inline-block;margin-top:10px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#283c17;background:#ffffff8a;border:1px solid #ffffffa0;border-radius:99px;padding:4px 7px;width:max-content}
+  .platforms{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .platform-card{position:relative;overflow:hidden;border-radius:22px;padding:25px;border:2px solid #ffffffc9;
+    background:linear-gradient(120deg,#53ff87,#efff32 35%,#ff9b35 68%,#ff58bf);color:#202a12;
+    box-shadow:0 9px 0 #4b9a20,0 17px 28px #345d1c4d,inset 0 2px 0 #ffffffc9}
+  .platform-card:nth-child(2){background:linear-gradient(120deg,#2ffff0,#61eaff 30%,#b779ff 65%,#ff5bc4)}
+  .platform-card h3{font-size:21px;margin:12px 0 8px}.platform-card p{color:#263a1b;font-size:13px;line-height:1.6;min-height:42px}
+  .platform-card .btn{margin-top:7px}
+  .platform-icon{font-size:30px}
+  footer{text-align:center;padding:38px 0 28px;color:#2e4c21;font-size:12px;line-height:1.8}
+  footer strong{color:#18300e;letter-spacing:.08em}
+  .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+    background:#fff;color:#243b18;padding:13px 17px;border-radius:13px;font-size:13px;font-weight:750;
+    box-shadow:0 10px 35px #0008;transition:.25s;z-index:20;max-width:90%;text-align:center}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:760px){
+    .hero{padding-top:38px}.explorer-card{grid-template-columns:1fr}.explorer-art{min-height:135px;grid-row:1}
+    .cube-scene{transform:scale(.82)}.explorer-card{gap:2px}
+    .community-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .community-card{min-height:168px;padding:16px 14px}.community-card h3{font-size:15px}
+    .platforms{grid-template-columns:1fr}.platform-card p{min-height:0}
+  }
+  @media(max-width:390px){.community-grid{grid-template-columns:1fr}.community-card{min-height:145px}.nav-pill{font-size:11px;padding:9px 10px}.brand{font-size:13px}}
+  @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <a class="brand" href="#" aria-label="Twinverse Goshen World home">
+    <span class="brand-mark">✦</span>
+    <span>TWINVERSE GOSHEN WORLD<small>A CONNECTED DIGITAL ECOSYSTEM</small></span>
+  </a>
+  <a class="nav-pill" href="#communities">Explore Communities ↓</a>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <div class="eyebrow"><span class="dot"></span> A WORLD OF IDEAS & POSSIBILITIES</div>
+    <h1><span class="gradient-text">Twinverse Goshen</span><br>World</h1>
+    <p class="tagline">Explore. Create. Connect. Build Together.</p>
+    <p class="objective">Our objective is to make <strong>blockchain more perceivable, reachable and viable in all fields</strong> — from education and business to art, literature, digital ownership, games and sustainable communities.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#explorer">✦ Enter the Explorer</a>
+      <a class="btn btn-secondary" href="#communities">Discover Our Communities ↓</a>
+    </div>
+  </section>
+
+  <section class="section wrap" id="explorer">
+    <div class="section-heading">
+      <h2>Start Your <span class="gradient-text">Discovery</span></h2>
+      <p>A playful introduction to how a blockchain explorer can look and work.</p>
+    </div>
+    <div class="explorer-card">
+      <div>
+        <div class="label">INTERACTIVE DEMO · NOT A LIVE BLOCKCHAIN</div>
+        <h3>Blockchain<br><span class="gradient-text">Explorer</span></h3>
+        <p>Explore a simulated blockchain world. Try a sample block number, transaction ID or wallet label to see a demonstration result. No real blockchain data or transactions are accessed.</p>
+        <div class="sim-panel">
+          <h4>Try the demo search</h4>
+          <form class="search-row" id="demoSearch">
+            <input id="demoQuery" aria-label="Demo block or transaction search" placeholder="Try BLOCK-1024 or TX-7F3A" maxlength="60">
+            <button type="submit">Explore</button>
+          </form>
+          <div class="sim-result" id="simResult" role="status" aria-live="polite"></div>
+          <div class="sim-stats">
+            <div class="stat"><b>1,024</b><span>Demo Blocks</span></div>
+            <div class="stat"><b>8,640</b><span>Sample Records</span></div>
+            <div class="stat"><b>SIM</b><span>Demo Network</span></div>
+          </div>
+        </div>
+        <p class="simulation-note">⚠ Demonstration only. All numbers and search results on this panel are fictional sample data.</p>
+      </div>
+      <div class="explorer-art" aria-hidden="true">
+        <div class="cube-scene"><div class="ring"></div><div class="ring two"></div><div class="cube">
+          <div class="face front">⛓</div><div class="face right">✦</div><div class="face top">◇</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="communities">
+    <div class="section-heading">
+      <h2>Enter Our <span class="gradient-text">Communities</span></h2>
+      <p>Different interests. Shared imagination. One growing world.</p>
+    </div>
+    <div class="community-grid">
+      <a class="community-card" href="#" data-community="Twinverse Book Project" style="--c1:#ffd66b;--c2:#ff8b7d">
+        <div class="community-top"><span class="icon-tile">📚</span><span class="arrow">↗</span></div>
+        <div><h3>Twinverse Book Project</h3><p>Books, research, ideas and knowledge.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="B2B Consultancy" style="--c1:#54eaff;--c2:#6378ff">
+        <div class="community-top"><span class="icon-tile">🏢</span><span class="arrow">↗</span></div>
+        <div><h3>B2B Consultancy</h3><p>Business networking, trade and consultancy.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="GAEKE Community" style="--c1:#7dffbd;--c2:#36a6a0">
+        <div class="community-top"><span class="icon-tile">🌱</span><span class="arrow">↗</span></div>
+        <div><h3>GAEKE Community</h3><p>Environmental action and sustainable projects.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="Artist Community" style="--c1:#ff70cf;--c2:#8e64ff">
+        <div class="community-top"><span class="icon-tile">🎨</span><span class="arrow">↗</span></div>
+        <div><h3>Artist Community</h3><p>Digital art, creativity and collaboration.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="Writers Community" style="--c1:#ffb86b;--c2:#ff6c9d">
+        <div class="community-top"><span class="icon-tile">✍️</span><span class="arrow">↗</span></div>
+        <div><h3>Writers Community</h3><p>Poetry, stories, literature and writing.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="Real Estate Community" style="--c1:#8bdaff;--c2:#5271d9">
+        <div class="community-top"><span class="icon-tile">🏡</span><span class="arrow">↗</span></div>
+        <div><h3>Real Estate Community</h3><p>Property projects and virtual land concepts.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="NFT Community" style="--c1:#d7a2ff;--c2:#775bff">
+        <div class="community-top"><span class="icon-tile">🖼️</span><span class="arrow">↗</span></div>
+        <div><h3>NFT Community</h3><p>Digital collections, NFTs and ownership.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="Educational Games Community" style="--c1:#9dff8b;--c2:#38a9c6">
+        <div class="community-top"><span class="icon-tile">🎮</span><span class="arrow">↗</span></div>
+        <div><h3>Educational Games</h3><p>Learning through play and interactive experiences.</p><span class="soon">Destination to be added</span></div>
+      </a>
+      <a class="community-card" href="#" data-community="More Communities" style="--c1:#ffe27d;--c2:#ff70cf">
+        <div class="community-top"><span class="icon-tile">🌐</span><span class="arrow">↗</span></div>
+        <div><h3>More Communities</h3><p>New ideas and groups will join this world.</p><span class="soon">Growing soon</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section wrap" id="platforms">
+    <div class="section-heading">
+      <h2>Explore Our <span class="gradient-text">Existing Platforms</span></h2>
+      <p>Keep exploring the websites already part of the Twinverse ecosystem.</p>
+    </div>
+    <div class="platforms">
+      <article class="platform-card">
+        <div class="platform-icon">✦</div>
+        <div class="label">EXISTING GOOGLE SITES WEBSITE</div>
+        <h3>TWINGO Official</h3>
+        <p>Visit the current TWINGO website and its existing information pages.</p>
+        <a class="btn btn-primary" href="https://sites.google.com/view/twingoofficial/home" target="_blank" rel="noopener noreferrer">Visit Existing Website ↗</a>
+      </article>
+      <article class="platform-card">
+        <div class="platform-icon">🖼️</div>
+        <div class="label">EXISTING GITHUB PAGES WEBSITE</div>
+        <h3>Twinverse NFT World</h3>
+        <p>Open the existing NFT website and explore its digital art experience.</p>
+        <a class="btn btn-primary" href="https://twinversegaushen.github.io/Twin-NFTs/" target="_blank" rel="noopener noreferrer">Explore Twinverse NFTs ↗</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>TWINVERSE GOSHEN WORLD</strong><br>
+  A growing ecosystem for ideas, creativity, learning and connection.<br>
+  <span>Blockchain explorer on this page is a simulation; it does not display live chain data.</span><br>
+  © <span id="year"></span> Twinverse Goshen World
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('demoSearch');
+  const input = document.getElementById('demoQuery');
+  const result = document.getElementById('simResult');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const query = input.value.trim();
+    if (!query) {
+      result.style.display = 'block';
+      result.innerHTML = 'Enter a sample search such as <strong>BLOCK-1024</strong> or <strong>TX-7F3A</strong>.';
+      input.focus();
+      return;
+    }
+    const safeQuery = query.replace(/[&<>"']/g, function(char) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char];
+    });
+    const number = 1000 + (query.length * 17 % 24);
+    result.style.display = 'block';
+    result.innerHTML =
+      '<strong>SIMULATION RESULT — NOT LIVE DATA</strong><br>' +
+      'Search: <b>' + safeQuery + '</b><br>' +
+      'Demo record: <b>BLOCK-' + number + '</b><br>' +
+      'Status: <b>Sample confirmed</b><br>' +
+      'Illustrative timestamp: ' + new Date().toISOString() +
+      '<br><span style="color:#e4f5ce">This result is generated by this webpage for demonstration only.</span>';
+  });
+
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  document.querySelectorAll('[data-community]').forEach(function(card) {
+    card.addEventListener('click', function(event) {
+      event.preventDefault();
+      toast.textContent = card.dataset.community + ' — its destination link will be added when that community page is ready.';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3200);
+    });
+  });
+</script>
+</body>
+</html>
